@@ -69,7 +69,6 @@ const checkPlay = (player1, player2) => {
 
 const checkWinCondition = (boxes) => {
 	plays++;
-	console.log(plays);
 
 	for (let i = 0; i < 3; i++) {
 		if (boxes[i][0].childNodes.length && boxes[i][1].childNodes.length && boxes[i][2].childNodes.length) {
@@ -128,9 +127,14 @@ const declareWinner = (winner) => {
 	}
 
 	messageContainer.classList.remove("hide");
+	document.body.style.pointerEvents = "none";
 
 	setTimeout(() => {
 		messageContainer.classList.add("hide");
+		boxesToRemove.forEach((box) => {
+			box.parentNode.removeChild(box);
+		});
+		document.body.style.pointerEvents = "auto";
 	}, 3000);
 
 	player1 = 0;
@@ -138,8 +142,4 @@ const declareWinner = (winner) => {
 	plays = 0;
 
 	const boxesToRemove = document.querySelectorAll(".box div");
-
-	boxesToRemove.forEach((box) => {
-		box.parentNode.removeChild(box);
-	});
 };
